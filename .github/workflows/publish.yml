@@ -46,7 +46,9 @@ jobs:
       run: |
             docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
             ${{ env.img }} \
-            bash -exc 'yum install -y openblas-devel gcc && \
+            bash -exc 'yum install -y epel-release && \
+            yum-config-manager --enable epel && \
+            yum install -y openblas-devel gcc && \
             pwd && \
             ls && \
             ./docker/pypa-env/build-wheels.sh'
