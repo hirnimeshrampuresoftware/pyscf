@@ -48,6 +48,8 @@ jobs:
             ${{ env.img }} \
             bash -exc 'pip install --upgrade pip && \
             yum install -y openblas-devel.aarch64 gcc && \
+            pwd && \
+            ls && \
             ./docker/pypa-env/build-wheels.sh'
 
   release-pypi-sdist:
