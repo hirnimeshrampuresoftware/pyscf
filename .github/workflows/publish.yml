@@ -1,12 +1,12 @@
 name: Publish
 
-on:
-  release:
-    types:
+on: [push]
+ # release:
+  #  types:
       # Note: editing the prerelease then marking as release does not trigger
       # this pipeline
-      - prereleased
-      - released
+   #   - prereleased
+    #  - released
 
 jobs:
   release-pypi-linux:
@@ -31,6 +31,24 @@ jobs:
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages_dir: ${{ github.workspace }}/linux-wheels
           verbose: true
+
+  release-pypi-aarch64:
+    runs-on: ubuntu-latest
+    env:
+      img: quay.io/pypa/manylinux2014_aarch64
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Set up QEMU
+      id: qemu
+      uses: docker/setup-qemu-action@v1
+    - name: Build Wheel
+      run: |
+            docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
+            ${{ env.img }} \
+            bash -exc 'pip install --upgrade pip && \
+            yum install -y openblas-devel.aarch64 gcc && \
+            ./docker/pypa-env/build-wheels.sh'
 
   release-pypi-sdist:
     runs-on: ubuntu-latest
