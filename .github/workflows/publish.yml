@@ -46,8 +46,7 @@ jobs:
       run: |
             docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
             ${{ env.img }} \
-            bash -exc 'pip install --upgrade pip && \
-            yum install -y openblas-devel.aarch64 gcc && \
+            bash -exc 'yum install -y openblas-devel.aarch64 gcc && \
             pwd && \
             ls && \
             ./docker/pypa-env/build-wheels.sh'
