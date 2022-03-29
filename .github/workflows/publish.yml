@@ -39,10 +39,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.7'
     - name: Set up QEMU
       id: qemu
       uses: docker/setup-qemu-action@v1
