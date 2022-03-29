@@ -15,7 +15,7 @@ fi
 
 # In certain versions of auditwheel, some .so files was excluded.
 if [ `uname -m` == "aarch64" ]; then
-   sed -i '/            if basename(fn) not in needed_libs:/s/basename.*libs/1/' /opt/_internal/pipx/venvs/auditwheel/lib/python3.9/site-packages/auditwheel/wheel_abi.py 
+   sed -i '/            if basename(fn) not in needed_libs:/s/basename.*libs/1/' /opt/_internal/pipx/venvs/auditwheel/lib/python3.7/site-packages/auditwheel/wheel_abi.py 
 else
    sed -i '/            if basename(fn) not in needed_libs:/s/basename.*libs/1/' /opt/_internal/tools/lib/python3.7/site-packages/auditwheel/wheel_abi.py 
 fi
