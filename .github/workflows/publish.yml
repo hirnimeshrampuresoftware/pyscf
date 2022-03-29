@@ -48,7 +48,7 @@ jobs:
       uses: docker/setup-qemu-action@v1
     - name: Build Wheel
       run: |
-            docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
+            docker run --rm -v ${{ github.workspace }}:/src/pyscf:rw --workdir=/src/pyscf \
             ${{ env.img }} \
             bash -exc 'yum install -y epel-release && \
             yum-config-manager --enable epel && \
