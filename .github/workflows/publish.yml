@@ -53,16 +53,16 @@ jobs:
             ${{ env.img }} \
             bash -exc '${{ env.py }} -m venv .env && \
             source .env/bin/activate && \
-            pip install --upgrade pip && \
+            pip install --upgrade pip setuptools && \
             yum install -y epel-release && \
             yum-config-manager --enable epel && \
             yum install -y openblas-devel gcc && \
             export src=${GITHUB_WORKSPACE:-/src/pyscf} && \
             export dst=${GITHUB_WORKSPACE:-/src/pyscf}/linux-wheels && \
             mkdir -p /root/wheelhouse $src/linux-wheels && \
-            export CMAKE_CONFIGURE_ARGS="-DWITH_F12=OFF -DBUILD_LIBXC=OFF -DBUILD_XCFUN=OFF -DBUILD_LIBCINT=OFF" && \
-            curl -L $1 | tar -C $src/pyscf/lib -xzf - && \
             sed -i "/            if basename(fn) not in needed_libs:/s/basename.*libs/1/" /opt/_internal/pipx/venvs/auditwheel/lib/python3.9/site-packages/auditwheel/wheel_abi.py && \
+            pwd && \
+            ls && \
             pip wheel -v --no-deps --no-clean -w /root/wheelhouse $src && \
             whl=`ls /root/wheelhouse/pyscf-*-linux_*.whl` && \
             auditwheel -v repair "$whl" --lib-sdir /lib -w $dst'
