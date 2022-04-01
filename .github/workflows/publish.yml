@@ -60,6 +60,7 @@ jobs:
             export src=${GITHUB_WORKSPACE:-/src/pyscf} && \
             export dst=${GITHUB_WORKSPACE:-/src/pyscf}/linux-wheels && \
             mkdir -p /root/wheelhouse $src/linux-wheels && \
+            export CMAKE_CONFIGURE_ARGS="-DWITH_F12=OFF" && \
             sed -i "/            if basename(fn) not in needed_libs:/s/basename.*libs/1/" /opt/_internal/pipx/venvs/auditwheel/lib/python3.9/site-packages/auditwheel/wheel_abi.py && \
             pip wheel -v --no-deps --no-clean -w /root/wheelhouse $src && \
             whl=`ls /root/wheelhouse/pyscf-*-linux_*.whl` && \
